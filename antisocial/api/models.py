@@ -24,3 +24,10 @@ class Business(models.Model):
     email = models.EmailField(_('email'))
     date_created = models.DateTimeField(_('date created'), default=timezone.now)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='business_created_by')
+
+
+class Post(models.Model):
+    content = models.TextField()
+    neighborHood = models.ForeignKey(NeighborHood, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(_('date created'), default=timezone.now)
