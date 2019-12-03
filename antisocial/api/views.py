@@ -42,8 +42,15 @@ class ObtainAuthTokenAndUserDetails(ObtainAuthToken):
             'token': token.key,
             'user': {
                 'id': user.id,
+                'last_login': user.last_login,
+                'is_superuser': user.is_superuser,
                 'username': user.username,
-                'email': user.email
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'is_staff': user.is_staff,
+                'date_joined': user.date_joined,
+                'email': user.email,
+                'neighborhood': user.neighborhood,
             }
         })
 
@@ -53,10 +60,18 @@ class UserDetailsFromToken(RetrieveAPIView):
     permission_classes = (IsAuthenticated,)
 
     def retrieve(self, request, *args, **kwargs):
+        print(request.user)
         return Response(dict(
             user={
                 'id': request.user.id,
+                'last_login': request.user.last_login,
+                'is_superuser': request.user.is_superuser,
                 'username': request.user.username,
-                'email': request.user.email
+                'first_name': request.user.first_name,
+                'last_name': request.user.last_name,
+                'is_staff': request.user.is_staff,
+                'date_joined': request.user.date_joined,
+                'email': request.user.email,
+                'neighborhood': request.user.neighborhood,
             }
         ))
