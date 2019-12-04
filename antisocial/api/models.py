@@ -18,9 +18,9 @@ class User(AbstractUser):
 
 
 class Business(models.Model):
-    name = name = models.CharField(max_length=500)
+    name = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    neighborHood = models.ForeignKey(NeighborHood, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(NeighborHood, on_delete=models.CASCADE)
     email = models.EmailField(_('email'))
     date_created = models.DateTimeField(_('date created'), default=timezone.now)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='business_created_by')
@@ -28,6 +28,16 @@ class Business(models.Model):
 
 class Post(models.Model):
     content = models.TextField()
-    neighborHood = models.ForeignKey(NeighborHood, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(NeighborHood, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_created = models.DateTimeField(_('date created'), default=timezone.now)
+
+
+class ContactInfo(models.Model):
+    facility = models.CharField(max_length=500)
+    phone_number = models.CharField(max_length=12)
+    Phone_number_2 = models.CharField(max_length=12, blank=True, null=True)
+    email = models.EmailField(_('email'))
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    neighborhood = models.ForeignKey(NeighborHood, on_delete=models.CASCADE)
     date_created = models.DateTimeField(_('date created'), default=timezone.now)
