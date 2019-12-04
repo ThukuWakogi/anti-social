@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -83,9 +84,9 @@ WSGI_APPLICATION = 'antisocial.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD']
+        'NAME': os.environ['DB_NAME'] if 'DB_NAME' in os.environ else None,
+        'USER': os.environ['DB_USER'] if 'DB_USER' in os.environ else None,
+        'PASSWORD': os.environ['DB_PASSWORD'] if 'DB_PASSWORD' in os.environ else None,
     }
 }
 
@@ -129,3 +130,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'api.User'
+
+django_heroku.settings(locals())
